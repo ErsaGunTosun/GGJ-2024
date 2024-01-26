@@ -1,54 +1,174 @@
 using System.Collections;
-using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.Jobs;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] float speed;
-    [SerializeField] LayerMask groundLayer;
-    [SerializeField] KeyCode rightButton;
-    [SerializeField] KeyCode leftButton;
-    [SerializeField] KeyCode jumpButton;
+    [SerializeField] private bool isFacingRight;  
+    [SerializeField] private bool isWalking;      
+    [SerializeField] private bool isGrounded;     
+    [SerializeField] private bool isTouchingWall; 
+    [SerializeField] private bool isWallSliding;
+    [SerializeField] private bool canJump;
+
+    [Range(0f, 100f)][SerializeField] public float groundCheckRadius = 10.0f;
+    [Range(0f, 100f)][SerializeField] public float wallCheckDistance = 10.0f;
+    [Range(0f, 100f)][SerializeField] public float movementSpeed = 10.0f;
+    [Range(0f, 100f)][SerializeField] public float wallSlidingSpeed = 10.0f;
+    [Range(0f, 100f)][SerializeField] public float movementForceInAir = 10.0f;
+    [Range(0f, 100f)][SerializeField] public float jumpForce    = 10.0f;
+    [Range(0, 2)][SerializeField] public int amountOfJumps = 1;
+    private int amountOfJumpsLeft = 1;
+    private float movementInputDirection;
 
 
-    private BoxCollider2D boxcollider;
+    public Transform groundCheck;
+    public Transform wallCheck;
+    public LayerMask WhatIsGround;
     private Rigidbody2D rb;
-    private void Awake()
+
+   
+
+    private void Start()
     {
-        boxcollider = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
-        rb.freezeRotation = true;
-
+        amountOfJumpsLeft = amountOfJumps;
     }
 
-    // Update is called once per frame
-    private void Update()
+    void Update()
     {
-        // rb.velocity =  new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
-        if (Input.GetKey(jumpButton) && isGround())
-            Jump();
-
-        if (Input.GetKey(rightButton))
-            rb.velocity = new Vector2(speed, rb.velocity.y);
-        else if (Input.GetKeyUp(rightButton))
-            rb.velocity = new Vector2(0, rb.velocity.y);
-
-        if (Input.GetKey(leftButton))
-            rb.velocity = new Vector2(-speed, rb.velocity.y);
-        else if (Input.GetKeyUp(leftButton))
-            rb.velocity = new Vector2(0, rb.velocity.y);
+        CheckInput();
+        CheckMovementDirection();
+        CheckIfCanJump();
+        CheckIfWallSliding();
     }
+
+    private void FixedUpdate()
+    {
+
+        ApplyMovement();
+        CheckSurroundings();
+    }
+
+    private void CheckInput()
+    {
+        movementInputDirection = Input.GetAxisRaw("Horizontal");
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            Jump();
+          
+        }
+    }
+
+    private void CheckSurroundings()
+    {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, WhatIsGround);
+
+        isTouchingWall = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, WhatIsGround);
+    }
+
+    private void CheckIfCanJump()
+    {
+        if(isGrounded && rb.velocity.y <= 0)
+        {
+            amountOfJumpsLeft = amountOfJumps;
+        }
+
+        if(rb.velocity.x != 0)
+        {
+            isWalking = true;
+        }
+        else
+        {
+            isWalking = false;
+        }
+
+        if (amountOfJumpsLeft <= 0)
+        {
+            canJump = false;
+        }
+        else
+        {
+            canJump = true;
+        }
+    }
+
+    private void CheckIfWallSliding()
+    {
+        if(isTouchingWall && !isGrounded && rb.velocity.y < 0)
+        {
+            isWallSliding = true;
+        }
+        else
+        {
+            isWallSliding = false;
+        }
+    }
+
+    private void CheckMovementDirection()
+    {
+        if(isFacingRight && movementInputDirection < 0)
+        {
+            Flip();
+        }
+        else if (!isFacingRight && movementInputDirection > 0)
+        {
+            Flip();
+        }
+    }
+    private void ApplyMovement()
+    {
+        if (isGrounded)
+        {
+            rb.velocity = new Vector2(movementSpeed * movementInputDirection, rb.velocity.y);
+        }
+        else if (!isGrounded && !isWallSliding && movementInputDirection != 0)
+        {
+            Vector2 forceToAdd = new Vector2(movementForceInAir * movementInputDirection, 0);
+            rb.AddForce(forceToAdd);
+
+            if(Mathf.Abs(rb.velocity.x) > movementSpeed)
+            {
+                rb.velocity = new Vector2(movementSpeed * movementInputDirection, rb.velocity.y);
+            }
+        }
+       
+        if (isWallSliding)
+        {
+            if(rb.velocity.y < -wallSlidingSpeed)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, -wallSlidingSpeed);
+            }
+        }
+    }
+
+    private void Flip()
+    {
+        if (!isWallSliding)
+        {
+            isFacingRight = !isFacingRight;
+            transform.Rotate(0f, 180f, 0f);
+        }
+    }
+
     private void Jump()
     {
-        rb.velocity = new Vector2(rb.velocity.x, speed);
-
+        if (canJump)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            amountOfJumpsLeft--;
+        }
+       
     }
-    private bool isGround()
+
+    private void OnDrawGizmos()
     {
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxcollider.bounds.center, boxcollider.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
+        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
 
-        return raycastHit.collider != null;
+        Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y, wallCheck.position.y));
+
     }
+
 }
-
-
