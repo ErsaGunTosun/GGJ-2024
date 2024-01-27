@@ -10,6 +10,7 @@ public class MovingPlatform : MonoBehaviour
     [SerializeField] private float speed = 2f;
 
     [SerializeField] private float platformDistance = 0.1f;
+
     // Start is called before the first frame update
     void Start()
     {

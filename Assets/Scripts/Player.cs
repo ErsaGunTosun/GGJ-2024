@@ -84,6 +84,10 @@ public class Player : MonoBehaviour
 
 	void Update()
 	{
+<<<<<<< HEAD
+        playerAnimator.SetFloat("Speed",1);
+=======
+>>>>>>> 9584075c8b6cfe430a271847bc093232c363b688
         _groundLingerTime += Time.deltaTime;
         if (IsTouchingWall)
         {
