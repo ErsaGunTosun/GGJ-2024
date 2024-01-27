@@ -336,6 +336,7 @@ MonoBehaviour:
   canMove: 0
   canFlip: 0
   hasWallJumped: 0
+  isDashing: 0
   amountOfJumps: 1
   movementSpeed: 10
   jumpForce: 15
@@ -350,6 +351,10 @@ MonoBehaviour:
   jumpTimerSet: 0.15
   turnTimerSet: 0.1
   wallJumpTimerSet: 0.5
+  dashTime: 0.2
+  dashSpeed: 50
+  distanceBetweenImages: 0
+  dashCoolDown: 2.5
   wallHopDirection: {x: 1, y: 0.5}
   wallJumpDirection: {x: 1, y: 2}
   tranform: {fileID: 0}
