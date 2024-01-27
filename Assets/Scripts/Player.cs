@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor.Build.Player;
+using UnityEngine;
 
 public class Player : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class Player : MonoBehaviour
 
     [Tooltip("How long can wall jump still be performed after not touching a wall?")]
     public float WallLinger = 0.1f;
+    Animator playerAnimator;
 
     public bool Jumpping { get; set; }
     public bool JumpWhenGrounded { get; set; }
@@ -75,7 +77,8 @@ public class Player : MonoBehaviour
 
 	void Awake()
     {
-		_transform = transform;
+        playerAnimator = GetComponent<Animator>();
+        _transform = transform;
 		_playerCollider = GetComponent<BoxCollider2D>();
 		_controller = GetComponent<MovementController>();
 		_isFacingRight = _transform.localScale.x > 0;
@@ -83,6 +86,7 @@ public class Player : MonoBehaviour
 
 	void Update()
 	{
+        playerAnimator.SetFloat("Speed")
         _groundLingerTime += Time.deltaTime;
         if (IsTouchingWall)
         {
