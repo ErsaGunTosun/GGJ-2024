@@ -30,7 +30,6 @@ public class Player : MonoBehaviour
 
     [Tooltip("How long can wall jump still be performed after not touching a wall?")]
     public float WallLinger = 0.1f;
-    Animator playerAnimator;
 
     public bool Jumpping { get; set; }
     public bool JumpWhenGrounded { get; set; }
@@ -77,7 +76,6 @@ public class Player : MonoBehaviour
 
 	void Awake()
     {
-        playerAnimator = GetComponent<Animator>();
         _transform = transform;
 		_playerCollider = GetComponent<BoxCollider2D>();
 		_controller = GetComponent<MovementController>();
@@ -86,7 +84,10 @@ public class Player : MonoBehaviour
 
 	void Update()
 	{
+<<<<<<< HEAD
         playerAnimator.SetFloat("Speed",1);
+=======
+>>>>>>> 9584075c8b6cfe430a271847bc093232c363b688
         _groundLingerTime += Time.deltaTime;
         if (IsTouchingWall)
         {

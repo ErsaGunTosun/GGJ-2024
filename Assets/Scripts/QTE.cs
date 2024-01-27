@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class QTE : MonoBehaviour
 {
+    /*
     public Transform arrowSpawnPoint;  // Oklarýn baþlangýç konumu
     public GameObject arrowPrefab;     // Ok objesi
 
@@ -38,4 +39,5 @@ public class QTE : MonoBehaviour
         KeyCode[] arrowKeys = { KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.LeftArrow, KeyCode.RightArrow };
         return arrowKeys[Random.Range(0, arrowKeys.Length)];
     }
+    */
 }
