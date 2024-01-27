@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6046715929010809643}
   m_Layer: 0
   m_Name: SUKRU
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c4c94c78336b4845b19cf5b8270444f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JumpMagnitude: 15
+  JumpMagnitude: 16
   JumpInterruptStrength: 100
   GroundedLinger: 0.05
   GroundCheckDistance: 0.5
@@ -174,9 +174,9 @@ MonoBehaviour:
     m_Bits: 8
   DefaultParameters:
     Flying: 0
-    Gravity: -30
+    Gravity: -25
     MaxVelocity: {x: 3.4028235e+38, y: 3.4028235e+38}
-    MaxSpeed: 4.5
+    MaxSpeed: 7
     AccelerationOnGround: 20
     AccelerationInAir: 5
 --- !u!50 &6046715929010809643
