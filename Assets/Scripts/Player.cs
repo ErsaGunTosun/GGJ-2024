@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor.Build.Player;
+using UnityEngine;
 
 public class Player : MonoBehaviour
 {
@@ -75,7 +76,7 @@ public class Player : MonoBehaviour
 
 	void Awake()
     {
-		_transform = transform;
+        _transform = transform;
 		_playerCollider = GetComponent<BoxCollider2D>();
 		_controller = GetComponent<MovementController>();
 		_isFacingRight = _transform.localScale.x > 0;
@@ -83,6 +84,10 @@ public class Player : MonoBehaviour
 
 	void Update()
 	{
+<<<<<<< HEAD
+        playerAnimator.SetFloat("Speed",1);
+=======
+>>>>>>> 9584075c8b6cfe430a271847bc093232c363b688
         _groundLingerTime += Time.deltaTime;
         if (IsTouchingWall)
         {

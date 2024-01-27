@@ -16,18 +16,20 @@ public class QuickTime : MonoBehaviour
     [SerializeField] private float speed = 15f;
     [SerializeField] Rigidbody2D rb;
 
-    public GameObject Up;
-    public GameObject Down;
-    public GameObject Right;
-    public GameObject Left;
+    //public GameObject Up;
+    //public GameObject Down;
+    //public GameObject Right;
+    //public GameObject Left;
 
     private bool isTrigger = false;
 
+    public List<GameObject> ObjectList = new List<GameObject>();
+    public GameObject button;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-
+        Debug.Log(ObjectList.Count);
     }
 
     // Update is called once per frame
@@ -36,7 +38,12 @@ public class QuickTime : MonoBehaviour
 
         rb.velocity = new Vector2(speed,rb.velocity.y);
         checkName();
+        Invoke("spawnObject", 10f);
 
+    }
+    private void spawnObject()
+    {
+        
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -53,13 +60,13 @@ public class QuickTime : MonoBehaviour
             Destroy(gameObject);
             isTrigger = true;
         }
-        else if (Input.GetKey(KeyCode.RightArrow) && boxId == (int)MyEnum.RIGHT)
+        else if (Input.GetKey(KeyCode.RightArrow) && boxId == (int)MyEnum.RIGHT )
         {
             Debug.Log("Right");
             Destroy(gameObject);
             isTrigger = true;
         }
-        else if (Input.GetKey(KeyCode.LeftArrow) && boxId == (int) MyEnum.LEFT)
+        else if (Input.GetKey(KeyCode.LeftArrow) && boxId == (int) MyEnum.LEFT )
         {
             Debug.Log("Left");
             Destroy(gameObject);
@@ -99,8 +106,9 @@ public class QuickTime : MonoBehaviour
 
         if(randomNumber == (int)MyEnum.UP)
         {
-            GameObject UpBox = Instantiate(Up); 
+            GameObject UpBox = Instantiate(Up);
             UpBox.transform.position = vector1;
+
         }
         else if (randomNumber == (int)MyEnum.DOWN)
         {
@@ -119,10 +127,5 @@ public class QuickTime : MonoBehaviour
         }
 
         Debug.Log(rnd);
-    }
-
-    private GameObject Instantiate(GameObject up, Vector2 vector1)
-    {
-        throw new NotImplementedException();
     }
 }
