@@ -108,6 +108,8 @@ public class MovementController : MonoBehaviour
 
 		_velocity.x = Mathf.Min(_velocity.x, Parameters.MaxVelocity.x);
         _velocity.y = Mathf.Min(_velocity.y, Parameters.MaxVelocity.y);
+
+        
     }
 
     void CalculateRayOrigins()

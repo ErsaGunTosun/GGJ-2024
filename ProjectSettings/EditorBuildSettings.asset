@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 8587bd3babac3364b8b9ef6d6992b840
+  - enabled: 1
     path: Assets/Scenes/Transition.unity
     guid: 3fa2ede3cb9e40a49b07d3313910641f
   - enabled: 1
@@ -14,4 +17,31 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level1.unity
     guid: 9b6259ea9b9a299498551985c96b66fa
+  - enabled: 1
+    path: Assets/Scenes/Level2.unity
+    guid: 5885c271598597042b5952c66608e112
+  - enabled: 1
+    path: Assets/Scenes/Level3.unity
+    guid: c3072aa34e8191d40badc45757e85c10
+  - enabled: 1
+    path: Assets/Scenes/Level4.unity
+    guid: fd3fc64187d24b348921a7ace7803cb4
+  - enabled: 1
+    path: Assets/Scenes/Level5.unity
+    guid: 2538882d7855edd44b06b913b1cc374d
+  - enabled: 1
+    path: Assets/Scenes/1seviye.unity
+    guid: edfd8583f269fb24c90fe71e6cb1ee91
+  - enabled: 1
+    path: Assets/Scenes/2seviye.unity
+    guid: fa4c386275f846647960e7fb2146822e
+  - enabled: 1
+    path: Assets/Scenes/3seviye.unity
+    guid: 55d8fe610cdf9314d9808314801b7c8f
+  - enabled: 1
+    path: Assets/Scenes/4seviye.unity
+    guid: b04665f8898d69c48b0dd33216390c31
+  - enabled: 1
+    path: Assets/Scenes/5seviye.unity
+    guid: aae1ec4fb34d9914ba7ad3a515da2199
   m_configObjects: {}

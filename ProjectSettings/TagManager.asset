@@ -9,6 +9,7 @@ TagManager:
   - BreakableGround
   - Ground
   - Platform
+  - Door
   layers:
   - Default
   - TransparentFX
